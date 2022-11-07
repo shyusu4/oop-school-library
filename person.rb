@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# class Person to store age, name and parent permission
 class Person
   attr_accessor :age, :name
   attr_reader :id
