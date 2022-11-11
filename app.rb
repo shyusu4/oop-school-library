@@ -22,7 +22,7 @@ class App
       app_choice = gets.chomp.to_i
       break if app_choice == 7
 
-      option(app_choice)
+      options(app_choice)
     end
   end
 
