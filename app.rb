@@ -100,6 +100,10 @@ class App
     name = gets.chomp.downcase
 
     print 'Has parent\'s permission? [Y/N]: '
+    parent_permission = gets.chomp.downcase == 'y'
+
+    new_student = Student.new(@classroom, age, name, parent_permission: parent_permission)
+    @people << new_student
   end
 
   def create_teacher
