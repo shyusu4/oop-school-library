@@ -26,7 +26,7 @@ class Person < Nameable
   def add_rental(price)
     @rentals << price
   end
-  
+
   private
 
   def of_age?

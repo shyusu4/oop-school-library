@@ -38,7 +38,7 @@ class App
     puts '7 - Exit'
   end
 
-  def option(input)
+  def options(input)
     case input
     when 1
       list_books
@@ -72,7 +72,9 @@ class App
     if @people.length.zero?
       puts 'No people found'
     else
-      @people.each_with_index { |person, index| puts "#{index}) Name: #{person.name}, Age: #{person.age}" }
+      @people.each_with_index do |person, index|
+        puts "#{index}) Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
+      end
     end
   end
 
@@ -142,5 +144,12 @@ class App
     @rentals << rental_item
     puts 'Rental created successfully'
   end
-  
+
+  def list_rentals
+    print 'ID of person: '
+    id = gets.chomp.to_i
+    @rentals.each do |rental|
+      puts "Date: #{rental.date}, Book: \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
+    end
+  end
 end
