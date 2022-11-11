@@ -61,9 +61,17 @@ class App
 
   def list_books
     if @books.length.zero?
-      puts 'There are no books'
+      puts 'No books found'
     else
-      @books.each_with_index { |book, id| puts "#{id}) Title: #{book.title}, Author: #{book.author}" }
+      @books.each { |book| puts "Title: #{book.title}, Author: #{book.author}" }
+    end
+  end
+
+  def list_people
+    if @people.length.zero?
+    puts 'No people found'
+    else
+    @people.each { |person| puts "Name: #{person.name}, Age: #{person.age}" }
     end
   end
 
@@ -97,24 +105,25 @@ class App
     age = gets.chomp
 
     print 'Name: '
-    name = gets.chomp.downcase
+    name = gets.chomp.capitalize
 
     print 'Has parent\'s permission? [Y/N]: '
     parent_permission = gets.chomp.downcase == 'y'
 
-    new_student = Student.new(@classroom, age, name, parent_permission: parent_permission)
-    @people << new_student
+    @people << Student.new(@classroom, age, name, parent_permission: parent_permission)
   end
 
   def create_teacher
     print 'Age: '
     age = gets.chomp
+
     print 'Name: '
     name = gets.chomp.capitalize
+
     print 'Specialization: '
     specialization = gets.chomp.downcase
 
-    new_teacher = Teacher.new(age, specialization, name)
-    @people << new_teacher
+    @people << Teacher.new(specialization, age, name)
   end
+
 end
