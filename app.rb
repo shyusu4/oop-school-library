@@ -21,6 +21,7 @@ class App
       app_options
       app_choice = gets.chomp.to_i
       break if app_choice == 7
+
       option(app_choice)
     end
   end
@@ -63,15 +64,15 @@ class App
     if @books.length.zero?
       puts 'No books found'
     else
-      @books.each { |book| puts "Title: #{book.title}, Author: #{book.author}" }
+      @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
     end
   end
 
   def list_people
     if @people.length.zero?
-    puts 'No people found'
+      puts 'No people found'
     else
-    @people.each { |person| puts "Name: #{person.name}, Age: #{person.age}" }
+      @people.each_with_index { |person, index| puts "#{index}) Name: #{person.name}, Age: #{person.age}" }
     end
   end
 
@@ -126,4 +127,20 @@ class App
     @people << Teacher.new(specialization, age, name)
   end
 
+  def create_rental
+    puts 'Select a book from the following list by number'
+    list_books
+    selected_book = gets.chomp.to_i
+    puts 'Select a person from the following list by number'
+    list_people
+    selected_person = gets.chomp.to_i
+    print 'Date (DD/MM/YYYY): '
+    date = gets.chomp
+    book = @books[selected_book]
+    person = @people[selected_person]
+    rental_item = Rental.new(date, book, person)
+    @rentals << rental_item
+    puts 'Rental created successfully'
+  end
+  
 end

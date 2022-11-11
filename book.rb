@@ -8,9 +8,4 @@ class Book
     @author = author
     @rentals = []
   end
-
-  def add_rental(rental)
-    @rentals << rental
-    rental.book = self unless rental.book == self
-  end
 end
