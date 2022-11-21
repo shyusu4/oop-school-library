@@ -103,7 +103,7 @@ class App
     @rentals << rental_item
     puts 'Rental created successfully'
   end
-  
+
   def list_rentals
     print 'ID of person: '
     id = gets.chomp.to_i

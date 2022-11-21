@@ -1,9 +1,10 @@
 require_relative './app'
 class Start
-    def initialize
-        @app = App.new
-    end
-      def entry_point
+  def initialize
+    @app = App.new
+  end
+
+  def entry_point
     puts 'Welcome to School Library App!'
 
     loop do
@@ -38,7 +39,7 @@ class Start
     when 4
       @app.create_book
     when 5
-       @app.create_rental
+      @app.create_rental
     when 6
       @app.list_rentals
     when 7
