@@ -14,7 +14,6 @@ class App
     @rentals = []
   end
 
-
   def list_books
     if @books.length.zero?
       puts 'No books found'
@@ -46,6 +45,11 @@ class App
   def create_person
     print 'Do you want to create a student (1) or a teacher (2)? [Input the number]: '
     num_input = gets.chomp.to_i
+    person_option(num_input)
+    puts 'Person Created Successfully'
+  end
+
+  def person_option(num_input)
     case num_input
     when 1
       create_student
@@ -54,8 +58,6 @@ class App
     else
       puts 'Invalid Entry'
     end
-
-    puts 'Person Created Successfully'
   end
 
   def create_student
@@ -68,7 +70,8 @@ class App
     print 'Has parent\'s permission? [Y/N]: '
     parent_permission = gets.chomp.downcase == 'y'
 
-    @people << Student.new(@classroom, age, name, parent_permission: parent_permission)
+    student_item = Student.new(@classroom, age, name, parent_permission: parent_permission)
+    @people << student_item
   end
 
   def create_teacher
@@ -81,7 +84,8 @@ class App
     print 'Specialization: '
     specialization = gets.chomp.downcase
 
-    @people << Teacher.new(specialization, age, name)
+    teacher_item = Teacher.new(specialization, age, name)
+    @people << teacher_item
   end
 
   def create_rental
@@ -100,12 +104,11 @@ class App
     puts 'Rental created successfully'
   end
   
-
   def list_rentals
     print 'ID of person: '
     id = gets.chomp.to_i
     @rentals.each do |rental|
-      puts "Date: #{rental.date}, Book: \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
+      puts %(Date: #{rental.date}, Book: "#{rental.book.title}" by #{rental.book.author}) if rental.person.id == id
     end
   end
 end
