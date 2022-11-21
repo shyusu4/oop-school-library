@@ -14,52 +14,6 @@ class App
     @rentals = []
   end
 
-  def entry_point
-    puts 'Welcome to School Library App!'
-
-    loop do
-      app_options
-      app_choice = gets.chomp.to_i
-      break if app_choice == 7
-
-      options(app_choice)
-    end
-  end
-
-  def app_options
-    puts ''
-    puts 'Please choose an option by entering a number:'
-    puts '1 - List all books'
-    puts '2 - List all people'
-    puts '3 - Create a person'
-    puts '4 - Create a book'
-    puts '5 - Create a rental'
-    puts '6 - List all rental for a given person id'
-    puts '7 - Exit'
-  end
-
-  def options(input)
-    case input
-    when 1
-      list_books
-    when 2
-      list_people
-    when 3
-      create_person
-    when 4
-      create_book
-    when 5
-      create_rental
-    when 6
-      list_rentals
-    when 7
-      puts 'Thanks for using the school library!'
-      exit
-    else
-      puts 'Invalid Entry'
-    end
-  end
-
   def list_books
     if @books.length.zero?
       puts 'No books found'
@@ -91,6 +45,11 @@ class App
   def create_person
     print 'Do you want to create a student (1) or a teacher (2)? [Input the number]: '
     num_input = gets.chomp.to_i
+    person_option(num_input)
+    puts 'Person Created Successfully'
+  end
+
+  def person_option(num_input)
     case num_input
     when 1
       create_student
@@ -99,8 +58,6 @@ class App
     else
       puts 'Invalid Entry'
     end
-
-    puts 'Person Created Successfully'
   end
 
   def create_student
@@ -113,7 +70,8 @@ class App
     print 'Has parent\'s permission? [Y/N]: '
     parent_permission = gets.chomp.downcase == 'y'
 
-    @people << Student.new(@classroom, age, name, parent_permission: parent_permission)
+    student_item = Student.new(@classroom, age, name, parent_permission: parent_permission)
+    @people << student_item
   end
 
   def create_teacher
@@ -126,7 +84,8 @@ class App
     print 'Specialization: '
     specialization = gets.chomp.downcase
 
-    @people << Teacher.new(specialization, age, name)
+    teacher_item = Teacher.new(specialization, age, name)
+    @people << teacher_item
   end
 
   def create_rental
@@ -149,7 +108,7 @@ class App
     print 'ID of person: '
     id = gets.chomp.to_i
     @rentals.each do |rental|
-      puts "Date: #{rental.date}, Book: \"#{rental.book.title}\" by #{rental.book.author}" if rental.person.id == id
+      puts %(Date: #{rental.date}, Book: "#{rental.book.title}" by #{rental.book.author}) if rental.person.id == id
     end
   end
 end
