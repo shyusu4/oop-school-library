@@ -10,5 +10,6 @@ class Data
     end
 
     def read_data(file_name)
+        File.read("#{@path}/#{file_name}")
     end
 end

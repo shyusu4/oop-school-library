@@ -19,10 +19,15 @@ class App
   end
 
   def list_books
-    if @books.length.zero?
-      puts 'No books found'
+    if File.size?('./data/book.json')
+      file = @data.read_data('book.json').split("\n")
+      file.each_with_index do |book1, index|
+      book = JSON.parse(book1)
+      #puts "#{index}) Title: #{book.title}, Author: #{book.author}"
+      puts book1
+      end
     else
-      @books.each_with_index { |book, index| puts "#{index}) Title: #{book.title}, Author: #{book.author}" }
+      puts 'No books found'
     end
   end
 
