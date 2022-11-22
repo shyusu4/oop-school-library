@@ -4,6 +4,9 @@ require_relative './teacher'
 require_relative './classroom'
 require_relative './book'
 require_relative './rental'
+require_relative './book_addition'
+require_relative './data'
+require 'json'
 
 class App
   attr_accessor :books, :people, :rentals
@@ -12,6 +15,7 @@ class App
     @books = []
     @people = []
     @rentals = []
+    @data = Data.new
   end
 
   def list_books
@@ -38,7 +42,11 @@ class App
     print 'Author: '
     author = gets.chomp
     book = Book.new(title, author)
-    @books << book
+
+    book1 = JSON.generate(book)
+    @data.write_data('book.json', book1)
+
+    ## @books << book
     puts 'Book created successfully'
   end
 
