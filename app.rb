@@ -22,10 +22,10 @@ class App
 
   def list_books
     if File.size?('./data/book.json')
-      file = @data.read_data('book.json').split(";")
+      file = @data.read_data('book.json').split(';')
       file.each_with_index do |book1, index|
-      book = JSON.parse(book1,create_additions: true)
-      puts "#{index}) Title: #{book.title}, Author: #{book.author}"
+        book = JSON.parse(book1, create_additions: true)
+        puts "#{index}) Title: #{book.title}, Author: #{book.author}"
       end
     else
       puts 'No books found'
@@ -33,16 +33,15 @@ class App
   end
 
   def list_people
-        if File.size?('./data/person.json')
-      file = @data.read_data('person.json').split(";")
+    if File.size?('./data/person.json')
+      file = @data.read_data('person.json').split(';')
       file.each_with_index do |p, index|
-      person = JSON.parse(p, create_additions: true)
-            puts "#{index} [#{person.class}] Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
+        person = JSON.parse(p, create_additions: true)
+        puts "#{index} [#{person.class}] Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
       end
     else
       puts 'No person found'
     end
-    
   end
 
   def create_book
@@ -87,13 +86,13 @@ class App
     print 'Has parent\'s permission? [Y/N]: '
     parent_permission = gets.chomp.downcase == 'y'
 
-    print "CLassroom :"
+    print 'CLassroom :'
     @classroom = gets.chomp
 
     student_item = Student.new(@classroom, age, name, parent_permission: parent_permission)
     stud1 = JSON.generate(student_item)
 
-    @data.write_data("person.json", stud1)
+    @data.write_data('person.json', stud1)
   end
 
   def create_teacher
@@ -108,8 +107,8 @@ class App
 
     teacher_item = Teacher.new(specialization, age, name)
     teacher_json = JSON.generate(teacher_item)
-    
-    @data.write_data("person.json",teacher_json)
+
+    @data.write_data('person.json', teacher_json)
   end
 
   def create_rental
@@ -121,18 +120,31 @@ class App
     selected_person = gets.chomp.to_i
     print 'Date (DD/MM/YYYY): '
     date = gets.chomp
-    book = @books[selected_book]
-    person = @people[selected_person]
-    rental_item = Rental.new(date, book, person)
-    @rentals << rental_item
+    b1 = @data.read_data('book.json').split(';')[selected_book]
+    book = JSON.parse(b1, create_additions: true)
+
+    p1 = @data.read_data('person.json').split(';')[selected_person]
+    person = JSON.parse(p1, create_additions: true)
+
+    rental = { date: date, book: { title: book.title, author: book.author },
+               person: { id: person.id, name: person.name, age: person.age } }
+
+    rental_json = JSON.generate(rental)
+
+    @data.write_data('rental.json', rental_json)
+
     puts 'Rental created successfully'
   end
 
   def list_rentals
     print 'ID of person: '
     id = gets.chomp.to_i
-    @rentals.each do |rental|
-      puts %(Date: #{rental.date}, Book: "#{rental.book.title}" by #{rental.book.author}) if rental.person.id == id
+    rentals = @data.read_data('rental.json').split(';')
+    rentals.each do |data|
+      rental = JSON.parse(data)
+      if rental['person']['id'] == id
+        puts %(Date: #{rental['date']}, Book: "#{rental['book']['title']}" by #{rental['book']['author']})
+      end
     end
   end
 end

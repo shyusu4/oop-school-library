@@ -3,7 +3,6 @@ require_relative './nameable'
 class Person < Nameable
   attr_accessor :id, :rentals
   attr_reader :age, :name, :parent_permission
-  
 
   def initialize(age, name, parent_permission)
     super()
