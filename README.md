@@ -29,6 +29,12 @@ Save records of who borrowed a given book and when.
 - Twitter: [@shyusu4](https://twitter.com/shyusu4)
 - LinkedIn: [Shakhrizoda Yusupova](https://www.linkedin.com/in/shyusu4/)
 
+👤 Melashu Amare
+
+- GitHub: [@melashu](https://github.com/melashu)
+- Twitter: [@meshu102](https://twitter.com/meshu102)
+- LinkedIn: [Melashu Amare](https://www.linkedin.com/in/melashu-amare/)
+
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
