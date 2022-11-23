@@ -6,6 +6,8 @@ require_relative './book'
 require_relative './rental'
 require_relative './book_addition'
 require_relative './data'
+require_relative './student_addition'
+require_relative './teacher_additions'
 require 'json'
 
 class App
@@ -31,13 +33,16 @@ class App
   end
 
   def list_people
-    if @people.length.zero?
-      puts 'No people found'
-    else
-      @people.each_with_index do |person, index|
-        puts "#{index}) Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
+        if File.size?('./data/person.json')
+      file = @data.read_data('person.json').split(";")
+      file.each_with_index do |p, index|
+      person = JSON.parse(p, create_additions: true)
+            puts "#{index} [#{person.class}] Name: #{person.name}, Age: #{person.age}, ID: #{person.id}"
       end
+    else
+      puts 'No person found'
     end
+    
   end
 
   def create_book
@@ -82,8 +87,13 @@ class App
     print 'Has parent\'s permission? [Y/N]: '
     parent_permission = gets.chomp.downcase == 'y'
 
+    print "CLassroom :"
+    @classroom = gets.chomp
+
     student_item = Student.new(@classroom, age, name, parent_permission: parent_permission)
-    @people << student_item
+    stud1 = JSON.generate(student_item)
+
+    @data.write_data("person.json", stud1)
   end
 
   def create_teacher
@@ -97,7 +107,9 @@ class App
     specialization = gets.chomp.downcase
 
     teacher_item = Teacher.new(specialization, age, name)
-    @people << teacher_item
+    teacher_json = JSON.generate(teacher_item)
+    
+    @data.write_data("person.json",teacher_json)
   end
 
   def create_rental
