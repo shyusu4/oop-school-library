@@ -22,5 +22,5 @@ describe Student do
   end
   it 'Check if play_hooky return ' do
     expect(@student.play_hooky).to eql '¯\\(ツ)/¯'
-   end
+  end
 end
