@@ -20,4 +20,20 @@ describe Person do
   it 'checks if Sofia has parent permission' do
     expect(@person.parent_permission).to be true
   end
+  it 'Check if  correct_name methos return Sofia' do
+    expect(@person.correct_name).to eql 'Sofia'
+  end
+   
+  it 'Check if add_rental can add rentals' do
+    rental1 = double('rental')
+    rental2 = double('rental')
+    @person.add_rental(rental2)
+    @person.add_rental(rental1)
+  expect(@person.rentals.size).to eq(2)
+  end
+
+  it 'Check if can_use_services? return true' do
+    expect(@person.can_use_services?).to be true
+  end
+
 end
