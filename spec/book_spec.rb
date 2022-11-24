@@ -1,7 +1,7 @@
 require_relative '../book'
 
 describe Book do
-  before :each do
+  before :all do
     @book = Book.new('The Great Gatsby', 'F. Scott Fitzgerald')
   end
 
