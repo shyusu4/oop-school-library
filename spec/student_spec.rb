@@ -20,4 +20,7 @@ describe Student do
   it 'checks if name is Sofia' do
     expect(@student.name).to eql 'Sofia'
   end
+  it 'Check if play_hooky return ' do
+    expect(@student.play_hooky).to eql '¯\\(ツ)/¯'
+   end
 end
